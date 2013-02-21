@@ -63,6 +63,12 @@ mv bin/composer.phar bin/composer
 if [ -f $BUILD_DIR/www/composer.json ]; then
   echo "Installing Composer dependencies"
   cd $BUILD_DIR/www
+
+  if [ -d vendor ]; then
+    echo "Remove existing Vendor Folder"
+    rm -rf vendor
+  fi
+
   $BUILD_DIR/bin/php $BUILD_DIR/bin/composer install
   cd $BUILD_DIR
 fi
