@@ -75,14 +75,6 @@ if [ -f $BUILD_DIR/www/composer.json ]; then
   cd $BUILD_DIR
 fi
 
-if [ -f $BUILD_DIR/www/artisan ]; then
-  cd $BUILD_DIR/www
-  $BUILD_DIR/bin/php artisan migrate:install --env=heroku
-  $BUILD_DIR/bin/php artisan migrate --env=heroku
-  $BUILD_DIR/bin/php artisan db:seed --env=heroku
-  cd $BUILD_DIR
-fi
-
 cat >>boot.sh <<EOF
 echo "Checking for WWWROOT environment variable..."
 if [ -n "\${WWWROOT:+x}" ]; then
