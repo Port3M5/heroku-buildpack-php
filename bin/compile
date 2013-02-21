@@ -67,6 +67,14 @@ if [ -f $BUILD_DIR/www/composer.json ]; then
   cd $BUILD_DIR
 fi
 
+if [ -f $BUILD_DIR/www/artisan ]; then
+  cd $BUILD_DIR/www
+  php artisan migrate:install
+  php artisan migrate
+  php artisan db:seed
+  cd $BUILD_DIR
+fi
+
 cat >>boot.sh <<EOF
 echo "Checking for WWWROOT environment variable..."
 if [ -n "\${WWWROOT:+x}" ]; then
