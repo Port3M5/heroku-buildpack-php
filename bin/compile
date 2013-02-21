@@ -69,6 +69,8 @@ if [ -f $BUILD_DIR/www/composer.json ]; then
     rm -rf vendor
   fi
 
+  unset GIT_DIR
+
   $BUILD_DIR/bin/php $BUILD_DIR/bin/composer install
   cd $BUILD_DIR
 fi
