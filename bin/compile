@@ -77,9 +77,9 @@ fi
 
 if [ -f $BUILD_DIR/www/artisan ]; then
   cd $BUILD_DIR/www
-  php artisan migrate:install
-  php artisan migrate
-  php artisan db:seed
+  $BUILD_DIR/bin/php artisan migrate:install
+  $BUILD_DIR/bin/php artisan migrate
+  $BUILD_DIR/bin/php artisan db:seed
   cd $BUILD_DIR
 fi
 
