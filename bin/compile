@@ -77,9 +77,9 @@ fi
 
 if [ -f $BUILD_DIR/www/artisan ]; then
   cd $BUILD_DIR/www
-  $BUILD_DIR/bin/php artisan migrate:install
-  $BUILD_DIR/bin/php artisan migrate
-  $BUILD_DIR/bin/php artisan db:seed
+  $BUILD_DIR/bin/php artisan migrate:install --env=heroku
+  $BUILD_DIR/bin/php artisan migrate --env=heroku
+  $BUILD_DIR/bin/php artisan db:seed --env=heroku
   cd $BUILD_DIR
 fi
 
