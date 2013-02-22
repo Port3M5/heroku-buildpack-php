@@ -25,7 +25,7 @@ cp -a /tmp/usr/lib/* /app/local/lib
 # export APACHE_MIRROR_HOST="http://www.apache.org/dist"
 export APACHE_MIRROR_HOST="http://apache.mirrors.tds.net"
 
-# curl -L ftp://mcrypt.hellug.gr/pub/crypto/mcrypt/libmcrypt/libmcrypt-2.5.7.tar.gz -o /tmp/libmcrypt-2.5.7.tar.gz
+curl -L ftp://mcrypt.hellug.gr/pub/crypto/mcrypt/libmcrypt/libmcrypt-2.5.7.tar.gz -o /tmp/libmcrypt-2.5.7.tar.gz
 # curl -L ftp://ftp.andrew.cmu.edu/pub/cyrus-mail/cyrus-sasl-2.1.25.tar.gz -o /tmp/cyrus-sasl-2.1.25.tar.gz
 echo "downloading libmemcached"
 curl -L https://launchpad.net/libmemcached/1.0/1.0.16/+download/libmemcached-1.0.16.tar.gz -o /tmp/libmemcached-1.0.16.tar.gz
@@ -46,7 +46,7 @@ curl -L http://zlib.net/zlib-1.2.7.tar.gz -o /tmp/zlib-1.2.7.tar.gz
 # echo "downloading pecl zip extension"
 # curl -L http://pecl.php.net/get/zip-1.10.2.tgz -o /tmp/zip-1.10.2.tgz
 
-# tar -C /tmp -xzf /tmp/libmcrypt-2.5.7.tar.gz
+tar -C /tmp -xzf /tmp/libmcrypt-2.5.7.tar.gz
 # tar -C /tmp -xzf /tmp/cyrus-sasl-2.1.25.tar.gz
 tar -C /tmp -xzf /tmp/libmemcached-1.0.16.tar.gz
 tar -C /tmp -xzf /tmp/pcre-8.32.tar.gz
@@ -70,10 +70,12 @@ export LD_LIBRARY_PATH="/app/local/lib"
 # export MAKEFLAGS="-j5"
 # export MAKE="/usr/bin/make $MAKEFLAGS"
 export MAKE="/usr/bin/make"
+unset CFLAGS && unset LDFLAGS && unset CPPFLAGS && unset CXXFLAGS
 
-# cd /tmp/libmcrypt-2.5.7
-# ./configure --prefix=/app/local --disable-posix-threads --enable-dynamic-loading --enable-static-link
-# ${MAKE} && ${MAKE} install
+
+cd /tmp/libmcrypt-2.5.7
+./configure --prefix=/app/local --disable-posix-threads --enable-dynamic-loading --enable-static-link
+${MAKE} && ${MAKE} install
 
 cd /tmp/zlib-1.2.7
 ./configure --prefix=/app/local --64
@@ -95,7 +97,7 @@ sed -e "s%/usr/local/apache2%/app/apache%" Makefile.AP2 > Makefile
 ${MAKE} && ${MAKE} install
 
 cd /tmp/php-5.4.11
-./configure --prefix=/app/php --with-mysql=mysqlnd --with-pdo-mysql=mysqlnd --with-pdo-pgsql --with-iconv --with-gd --with-curl=/usr/lib --with-config-file-path=/app/php --enable-soap=shared --with-openssl --enable-mbstring --with-mhash --enable-mysqlnd --with-pear --with-mysqli=mysqlnd --with-jpeg-dir --with-png-dir --with-mcrypt=/app/local --enable-static --enable-fpm --with-pcre-dir=/app/local --disable-cgi --enable-zip
+./configure --prefix=/app/php --with-mysql=mysqlnd --with-pgsql --with-pdo-mysql=mysqlnd --with-pdo-pgsql --with-iconv --with-gd --with-curl=/usr/lib --with-config-file-path=/app/php --enable-soap=shared --with-openssl --enable-mbstring --with-mhash --enable-mysqlnd --with-pear --with-mysqli=mysqlnd --with-jpeg-dir --with-png-dir --with-mcrypt=/app/local --enable-static --enable-fpm --with-pcre-dir=/app/local --disable-cgi --enable-zip
 ${MAKE}
 ${MAKE} install
 
